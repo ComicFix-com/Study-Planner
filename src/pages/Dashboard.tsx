@@ -3,9 +3,9 @@ import { UserButton } from "@clerk/clerk-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BarChart, Clock, BookOpen } from "lucide-react";
+import { BarChart, Calendar as CalendarIcon, BookOpen } from "lucide-react";
 import StudyChart from "@/components/StudyChart";
-import TaskList from "@/components/TaskList";
+import StudySessionForm from "@/components/StudySession";
 
 const Dashboard = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -31,11 +31,11 @@ const Dashboard = () => {
           </Card>
 
           <Card className="col-span-1 md:col-span-2 p-6">
-            <Tabs defaultValue="tasks" className="w-full">
+            <Tabs defaultValue="sessions" className="w-full">
               <TabsList className="grid w-full grid-cols-3 mb-4">
-                <TabsTrigger value="tasks" className="flex items-center gap-2">
-                  <Clock className="h-4 w-4" />
-                  Tasks
+                <TabsTrigger value="sessions" className="flex items-center gap-2">
+                  <CalendarIcon className="h-4 w-4" />
+                  Study Sessions
                 </TabsTrigger>
                 <TabsTrigger value="subjects" className="flex items-center gap-2">
                   <BookOpen className="h-4 w-4" />
@@ -46,8 +46,8 @@ const Dashboard = () => {
                   Analytics
                 </TabsTrigger>
               </TabsList>
-              <TabsContent value="tasks">
-                <TaskList />
+              <TabsContent value="sessions">
+                <StudySessionForm />
               </TabsContent>
               <TabsContent value="subjects">
                 <div className="text-center text-gray-500 py-8">

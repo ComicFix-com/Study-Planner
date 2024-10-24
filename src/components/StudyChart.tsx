@@ -10,7 +10,7 @@ import {
 } from "recharts";
 
 const data = [
-  { subject: "Math", hours: 10 },
+  { subject: "Mathematics", hours: 10 },
   { subject: "Science", hours: 8 },
   { subject: "History", hours: 5 },
   { subject: "English", hours: 7 },
