@@ -13,24 +13,29 @@ const Footer = () => {
   return (
     <footer className="bg-white border-t mt-auto py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-center space-x-4">
-          {socialLinks.map(({ icon: Icon, href, label }) => (
-            <Button
-              key={label}
-              variant="ghost"
-              size="icon"
-              className="hover:text-indigo-600 transition-colors"
-              asChild
-            >
-              <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
-                <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
-              </a>
-            </Button>
-          ))}
+        <div className="flex flex-col items-center space-y-4">
+          <div className="flex justify-center space-x-4">
+            {socialLinks.map(({ icon: Icon, href, label }) => (
+              <Button
+                key={label}
+                variant="ghost"
+                size="icon"
+                className="hover:text-indigo-600 transition-colors"
+                asChild
+              >
+                <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+                  <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
+                </a>
+              </Button>
+            ))}
+          </div>
+          <p className="text-center text-sm text-gray-600">
+            The platform developed is open source and the open community is ComicFix
+          </p>
+          <p className="text-center text-sm text-gray-500">
+            © {new Date().getFullYear()} Study Planner. All rights reserved.
+          </p>
         </div>
-        <p className="text-center text-sm text-gray-500 mt-4">
-          © {new Date().getFullYear()} Study Planner. All rights reserved.
-        </p>
       </div>
     </footer>
   );
