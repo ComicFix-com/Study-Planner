@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
+import useSound from "use-sound";
 
 interface StudySession {
   id: string;
@@ -10,6 +11,7 @@ interface StudySession {
   duration: number;
   date: string;
   notes: string;
+  reminder: string;
 }
 
 const StudySessionForm = () => {
@@ -18,6 +20,28 @@ const StudySessionForm = () => {
   const [duration, setDuration] = useState("");
   const [notes, setNotes] = useState("");
   const [date, setDate] = useState("");
+  const [reminder, setReminder] = useState("");
+  
+  // Using a placeholder URL for the alert sound - replace with your actual sound file
+  const [playAlert] = useSound('/alert.mp3');
+
+  useEffect(() => {
+    const checkReminders = setInterval(() => {
+      sessions.forEach((session) => {
+        const reminderTime = new Date(session.reminder).getTime();
+        const now = new Date().getTime();
+        
+        if (Math.abs(reminderTime - now) < 1000) { // Within 1 second
+          playAlert();
+          toast.warning(`Time to study ${session.subject}!`, {
+            duration: 5000,
+          });
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(checkReminders);
+  }, [sessions, playAlert]);
 
   const addSession = () => {
     if (!subject || !duration || !date) {
@@ -31,6 +55,7 @@ const StudySessionForm = () => {
       duration: Number(duration),
       date,
       notes,
+      reminder: reminder || date, // Use session date if no specific reminder set
     };
 
     setSessions([...sessions, newSession]);
@@ -38,6 +63,7 @@ const StudySessionForm = () => {
     setDuration("");
     setNotes("");
     setDate("");
+    setReminder("");
     toast.success("Study session added successfully!");
   };
 
@@ -71,6 +97,13 @@ const StudySessionForm = () => {
         />
 
         <Input
+          type="datetime-local"
+          placeholder="Set reminder (optional)"
+          value={reminder}
+          onChange={(e) => setReminder(e.target.value)}
+        />
+
+        <Input
           placeholder="Study notes"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
@@ -91,7 +124,10 @@ const StudySessionForm = () => {
               <div>
                 <h3 className="font-semibold capitalize">{session.subject}</h3>
                 <p className="text-sm text-gray-500">
-                  {new Date(session.date).toLocaleString()}
+                  Session: {new Date(session.date).toLocaleString()}
+                </p>
+                <p className="text-sm text-gray-500">
+                  Reminder: {new Date(session.reminder).toLocaleString()}
                 </p>
               </div>
               <div className="text-right">

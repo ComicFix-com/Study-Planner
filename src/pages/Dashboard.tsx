@@ -3,9 +3,10 @@ import { UserButton } from "@clerk/clerk-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BarChart, Calendar as CalendarIcon, BookOpen } from "lucide-react";
+import { BarChart, Calendar as CalendarIcon, BookOpen, ClipboardList } from "lucide-react";
 import StudyChart from "@/components/StudyChart";
 import StudySessionForm from "@/components/StudySession";
+import HomeworkTracker from "@/components/HomeworkTracker";
 
 const Dashboard = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
@@ -32,10 +33,14 @@ const Dashboard = () => {
 
           <Card className="col-span-1 md:col-span-2 p-6">
             <Tabs defaultValue="sessions" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 mb-4">
+              <TabsList className="grid w-full grid-cols-4 mb-4">
                 <TabsTrigger value="sessions" className="flex items-center gap-2">
                   <CalendarIcon className="h-4 w-4" />
                   Study Sessions
+                </TabsTrigger>
+                <TabsTrigger value="homework" className="flex items-center gap-2">
+                  <ClipboardList className="h-4 w-4" />
+                  Homework
                 </TabsTrigger>
                 <TabsTrigger value="subjects" className="flex items-center gap-2">
                   <BookOpen className="h-4 w-4" />
@@ -48,6 +53,9 @@ const Dashboard = () => {
               </TabsList>
               <TabsContent value="sessions">
                 <StudySessionForm />
+              </TabsContent>
+              <TabsContent value="homework">
+                <HomeworkTracker />
               </TabsContent>
               <TabsContent value="subjects">
                 <div className="text-center text-gray-500 py-8">
