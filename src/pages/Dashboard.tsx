@@ -7,12 +7,13 @@ import { BarChart, Calendar as CalendarIcon, BookOpen, ClipboardList } from "luc
 import StudyChart from "@/components/StudyChart";
 import StudySessionForm from "@/components/StudySession";
 import HomeworkTracker from "@/components/HomeworkTracker";
+import Footer from "@/components/Footer";
 
 const Dashboard = () => {
   const [date, setDate] = useState<Date | undefined>(new Date());
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-white shadow-sm sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <h1 className="text-xl sm:text-2xl font-bold text-indigo-600">Study Planner</h1>
@@ -20,7 +21,7 @@ const Dashboard = () => {
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 flex-grow">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           <Card className="col-span-1 p-2 sm:p-4 overflow-hidden">
             <Calendar
@@ -73,6 +74,8 @@ const Dashboard = () => {
           </Card>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 };
